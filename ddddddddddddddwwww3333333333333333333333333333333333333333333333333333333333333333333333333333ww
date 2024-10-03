@@ -1,0 +1,193 @@
+local TweenService = game:GetService("TweenService")
+local UIS = game:GetService("UserInputService")
+local PlayerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+if PlayerGui:FindFirstChild("AdvancedMagicUI") then
+    PlayerGui:FindFirstChild("AdvancedMagicUI"):Destroy()
+end
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "AdvancedMagicUI"
+local mainFrame = Instance.new("Frame")
+local button1 = Instance.new("TextButton")
+local button2 = Instance.new("TextButton")
+local speedLabel = Instance.new("TextLabel")
+local speedInput = Instance.new("TextBox")
+local label = Instance.new("TextLabel")
+local notifyLabel = Instance.new("TextLabel")
+local uiCornerMain = Instance.new("UICorner")
+local uiStrokeMain = Instance.new("UIStroke")
+
+local scriptLoaded1 = false
+local scriptLoaded2 = false
+
+screenGui.Parent = PlayerGui
+
+mainFrame.Parent = screenGui
+mainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+mainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
+mainFrame.Size = UDim2.new(0, 300, 0, 350)
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.BackgroundTransparency = 0.15
+mainFrame.Active = true
+mainFrame.Visible = true
+mainFrame.Draggable = true
+
+uiCornerMain.Parent = mainFrame
+uiCornerMain.CornerRadius = UDim.new(0, 12)
+
+uiStrokeMain.Parent = mainFrame
+uiStrokeMain.Color = Color3.fromRGB(85, 170, 255)
+uiStrokeMain.Thickness = 2
+
+button1.Parent = mainFrame
+button1.Text = "OP SILENT(LOOOT)"
+button1.Size = UDim2.new(0, 240, 0, 50)
+button1.Position = UDim2.new(0.5, 0, 0.2, 0)
+button1.AnchorPoint = Vector2.new(0.5, 0.5)
+button1.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+button1.TextColor3 = Color3.fromRGB(255, 255, 255)
+button1.Font = Enum.Font.GothamBlack
+button1.TextScaled = true
+
+local buttonCorner1 = Instance.new("UICorner", button1)
+buttonCorner1.CornerRadius = UDim.new(0, 12)
+
+button2.Parent = mainFrame
+button2.Text = "OP CAMLOCK (Another)"
+button2.Size = UDim2.new(0, 240, 0, 50)
+button2.Position = UDim2.new(0.5, 0, 0.4, 0)
+button2.AnchorPoint = Vector2.new(0.5, 0.5)
+button2.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+button2.TextColor3 = Color3.fromRGB(255, 255, 255)
+button2.Font = Enum.Font.GothamBlack
+button2.TextScaled = true
+
+local buttonCorner2 = Instance.new("UICorner", button2)
+buttonCorner2.CornerRadius = UDim.new(0, 12)
+
+speedLabel.Parent = mainFrame
+speedLabel.Text = "Speed:"
+speedLabel.Size = UDim2.new(0, 100, 0, 50)
+speedLabel.Position = UDim2.new(0.25, 0, 0.6, 0)
+speedLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+speedLabel.BackgroundTransparency = 1
+speedLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedLabel.Font = Enum.Font.GothamBlack
+speedLabel.TextScaled = true
+
+speedInput.Parent = mainFrame
+speedInput.Size = UDim2.new(0, 100, 0, 50)
+speedInput.Position = UDim2.new(0.75, 0, 0.6, 0)
+speedInput.AnchorPoint = Vector2.new(0.5, 0.5)
+speedInput.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+speedInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+speedInput.Font = Enum.Font.GothamBlack
+speedInput.TextScaled = true
+speedInput.PlaceholderText = "Enter Speed"
+
+local inputCorner = Instance.new("UICorner", speedInput)
+inputCorner.CornerRadius = UDim.new(0, 12)
+
+label.Parent = mainFrame
+label.Text = "LOCKSHIT"
+label.Size = UDim2.new(0, 240, 0, 25)
+label.Position = UDim2.new(0.5, 0, 0.9, 0)
+label.AnchorPoint = Vector2.new(0.5, 0.5)
+label.BackgroundTransparency = 1
+label.TextColor3 = Color3.fromRGB(255, 255, 255)
+label.Font = Enum.Font.GothamBold
+label.TextScaled = true
+
+notifyLabel.Parent = screenGui
+notifyLabel.Text = ""
+notifyLabel.Size = UDim2.new(0, 200, 0, 50)
+notifyLabel.Position = UDim2.new(0.5, 0, 0.1, 0)
+notifyLabel.AnchorPoint = Vector2.new(0.5, 0)
+notifyLabel.BackgroundTransparency = 1
+notifyLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+notifyLabel.Font = Enum.Font.GothamBlack
+notifyLabel.TextScaled = true
+notifyLabel.Visible = false
+
+local githubUrl1 = "https://raw.githubusercontent.com/fx2024ondiscord/L.K-au-ROBLOX-/refs/heads/main/misnary.lua"
+local githubUrl2 = "https://raw.githubusercontent.com/fx2024ondiscord/L.K-au-ROBLOX-/refs/heads/main/misnary.lua"
+local antiCheatUrl = "https://raw.githubusercontent.com/fx2024ondiscord/L.K-au-ROBLOX-/refs/heads/main/anti%2Bcheats%2Cdet%2Cmod%20%2B%2B%2B%2B%2B%2B%2B%2B%2B%2B"
+
+local function loadScript(url)
+    local success, result = pcall(function()
+        return loadstring(game:HttpGet(url))()
+    end)
+    return success, result
+end
+
+local function toggleMainFrame()
+    mainFrame.Visible = not mainFrame.Visible
+end
+
+-- Show main frame immediately when the script is executed
+mainFrame.Visible = true
+
+button1.MouseButton1Click:Connect(function()
+    if not scriptLoaded1 then
+        local success = loadScript(githubUrl1)
+        if success then
+            scriptLoaded1 = true
+            notifyLabel.Text = "Script Loaded"
+            notifyLabel.TextColor3 = Color3.fromRGB(0, 455, 0)
+            notifyLabel.Visible = true
+            wait(2)
+            notifyLabel.Visible = false
+        else
+            warn("Error loading script 1.")
+        end
+    else
+        notifyLabel.Text = "Script already loaded."
+        notifyLabel.Visible = true
+        wait(2)
+        notifyLabel.Visible = false
+    end
+end)
+
+button2.MouseButton1Click:Connect(function()
+    if not scriptLoaded2 then
+        local success = loadScript(githubUrl2)
+        if success then
+            scriptLoaded2 = true
+            notifyLabel.Text = "Script Loaded"
+            notifyLabel.TextColor3 = Color3.fromRGB(0, 255, 0)
+            notifyLabel.Visible = true
+            wait(2)
+            notifyLabel.Visible = false
+        else
+            warn("Error loading script 2.")
+        end
+    else
+        notifyLabel.Text = "Script already loaded."
+        notifyLabel.Visible = true
+        wait(2)
+        notifyLabel.Visible = false
+    end
+end)
+
+speedInput.FocusLost:Connect(function()
+    local speedValue = tonumber(speedInput.Text)
+    if speedValue then
+        local player = game.Players.LocalPlayer
+        local character = player.Character or player.CharacterAdded:Wait()
+        local humanoid = character:WaitForChild("Humanoid")
+        humanoid.WalkSpeed = speedValue
+    else
+        notifyLabel.Text = "Invalid Speed!"
+        notifyLabel.Visible = true
+        wait(2)
+        notifyLabel.Visible = false
+    end
+end)
+
+-- Toggle visibility with the '0' key
+UIS.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.Zero then
+        toggleMainFrame()
+    end
+end)
