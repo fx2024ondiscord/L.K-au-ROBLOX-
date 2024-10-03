@@ -1,0 +1,85 @@
+if game.PlaceId ~= 2788229376 then return end
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local MainEvent = ReplicatedStorage:WaitForChild("MainEvent")
+local walkspeedIncrement = 5
+
+local Flags = {"CHECKER_1", "TeleportDetect", "OneMoreTime"}
+local blacklistedUserIds = {
+    163721789, 15427717, 201454243, 822999, 63794379, 
+    17260230, 28357488, 93101606, 8195210, 89473551, 
+    16917269, 85989579, 1553950697, 476537893, 
+    155627580, 31163456, 7200829, 25717070, 201454243, 
+    15427717, 63794379, 16138978, 60660789, 
+    17260230, 16138978, 1161411094, 9125623, 
+    11319153, 34758833, 194109750, 35616559, 
+    1257271138, 28885841, 23558830, 25717070,
+}
+
+local scriptLoaded = false
+
+local function onPlayerAdded(player)
+    for _, userId in pairs(blacklistedUserIds) do
+        if player.UserId == userId then
+            player:Kick("A mod has been detected in-game.")
+            return
+        end
+    end
+
+    player.CharacterAdded:Connect(function(character)
+        local humanoid = character:FindFirstChildOfClass("Humanoid")
+        if humanoid then
+            humanoid.WalkSpeed = humanoid.WalkSpeed + walkspeedIncrement
+        end
+    end)
+end
+
+local function kickBlacklistedPlayers()
+    for _, player in pairs(game.Players:GetPlayers()) do
+        for _, userId in pairs(blacklistedUserIds) do
+            if player.UserId == userId then
+                player:Kick("A mod has been detected in-game.")
+            end
+        end
+    end
+end
+
+local function setupHooks()
+    local namecall
+    namecall = hookmetamethod(game, "namecall", function(...)
+        local args = {...}
+        if #args < 3 then return namecall(...) end
+        local self, method, flag = args[1], getnamecallmethod(), args[2]
+
+        if method == "FireServer" and self == MainEvent then
+            for _, v in ipairs(Flags) do
+                if flag == v then
+                    return
+                end
+            end
+        end
+
+        if not checkcaller() and getfenv(2).crash then
+            local fenv = getfenv(2)
+            fenv.crash = function() end
+            setfenv(2, fenv)
+        end
+
+        return namecall(...)
+    end)
+
+    local newindex
+    newindex = hookmetamethod(game, "newindex", function(t, k, v)
+        if not checkcaller() and t:IsA("Humanoid") and (k == "WalkSpeed" or k == "JumpPower") then
+            return
+        end
+        return newindex(t, k, v)
+    end)
+end
+
+if not scriptLoaded then
+    scriptLoaded = true
+    game.Players.PlayerAdded:Connect(onPlayerAdded)
+    kickBlacklistedPlayers()
+    setupHooks()
+end
