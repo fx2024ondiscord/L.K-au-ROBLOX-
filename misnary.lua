@@ -26,11 +26,11 @@ print("=")
   --// Custom Drawing
   -- loadstring((syn and syn.request or request)({Url = "https://rentry.co/7osf4/raw", Method = "Get"}).Body)(); -- J4VZ9cJh
   local MainColor = Color3.fromRGB(255, 102, 204)
-  local CrosshairHandler = loadstring(game:HttpGet('https://rentry.co/y36dzarh/raw', true))() do
+  local CrosshairHandler = loadstring(game:HttpGet('https://rentry.co/gp986rdd/raw', true))() do
     getgenv().crosshair.enabled = false
     getgenv().crosshair.color = MainColor
   end
-  local ESPHandler = loadstring(game:HttpGet('https://rentry.co/t44o2pao/raw', true))() do
+  local ESPHandler = loadstring(game:HttpGet('https://rentry.co/kn2pfu48/raw', true))() do
     getgenv().esp.Enabled = false
     getgenv().esp.SkeletonEnabled = false
     getgenv().esp.ChamsEnabled = false
@@ -84,6 +84,7 @@ end
     DotParent.Anchored = true
     DotParent.CFrame = CFrame.new(0,2000,0)
     DotParent.Transparency = 1
+    nigganiggaXD.MeshId = "rbxassetid://3726303797"  --3726303797
     nigganiggaXD.CanCollide = false
     nigganiggaXD.Anchored = true
     nigganiggaXD.Material = Enum.Material.Neon
@@ -146,38 +147,28 @@ local Desync = {}
 
 local Notifications = {};
 local Utility = {};
-
-local List = {
-    [16469595315] = {'Del Hood Aim', 'UpdateMousePos', 'MainEvent'},
-    [17319408836] = {'OG Da Hood', 'UpdateMousePos', 'MainEvent'},
-    [14975320521] = {'Ar Hood', 'UpdateMousePos', 'MainEvent'},
-    [17200018150] = {'Hood Of AR', 'UpdateMousePos', 'MainEvent'},
-    [15644861772] = {'Flame Hood', 'UpdatQeMousePos', 'MainEvent'},
-    [17723797487] = {'Dee Hood', 'UpdateMousePosI', 'MainEvent'},
-    [17897702920] = {'Og Da Hood', 'UpdateMousePos', 'MainEvent'},
-    [17809101348] = {'New Hood', 'UpdateMousePos', 'MainEvent'},
-    [17344804827] = {'Yeno Hood', 'UpdateMousePos', 'MainEvent'},
-    [16435867341] = {'Mad Hood', 'UpdateMousePos', 'MainEvent'},
-    [14412601883] = {'Hood Bank', 'MOUSE', 'MAINEVENT'},
-    [14412436145] = {'Da Uphill', 'MOUSE', 'MAINEVENT'},
-    [14487637618] = {'Da Hood Bot Aim Trainer', 'MOUSE', 'MAINEVENT'},
-    [11143225577] = {'1v1 Hood Aim Trainer', 'UpdateMousePos', 'MainEvent'},
-    [14413712255] = {'Hood Aim', 'MOUSE', 'MAINEVENT'},
-    [12927359803] = {'Dah Aim Trainer', 'UpdateMousePos', 'MainEvent'},
-    [12867571492] = {'Katana Hood', 'UpdateMousePos', 'MainEvent'},
-    [11867820563] = {'Dae Hood', 'UpdateMousePos', 'MainEvent'},
-    [17109142105] = {'Da Battles', 'MoonUpdateMousePos', 'MainEvent'},
-    [15186202290] = {'Da Strike', 'MOUSE', 'MAINEVENT'},
-    [2788229376] = {'Da Hood', 'UpdateMousePosI', 'MainEvent'},
-    [16033173781] = {'Da Hood Macro', 'UpdateMousePosI', 'MainEvent'},
-    [7213786345] = {'Da Hood VC', 'UpdateMousePosI', 'MainEvent'},
-    [9825515356] = {'Hood Customs', 'MousePosUpdate', 'MainEvent'},
-    [17895632819] = {'Hood Spirit', 'UpdateMousePos', 'MainEvent'},
-    [5602055394] = {'Hood Modded', 'MousePos', 'Bullets'},
-    [7951883376] = {'Hood Modded VC', 'MousePos', 'Bullets'},
-    [9183932460] = {'Untitled Hood', 'UpdateMousePos', '.gg/untitledhood'},
-    [14412355918] = {'Da Downhill', 'MOUSE', 'MAINEVENT'}
+local Games = {
+    [2788229376] = {Name = "Da Hood",                  Argument = "UpdateMousePosI"},
+    [16033173781] = {Name = "Da Hood Macro",                  Argument = "UpdateMousePosI"},
+    [9825515356] = {Name = "Hood Customs",             Argument = "MousePosUpdate"},
+    [5602055394] = {Name = "Hood Modded",              Argument = "MousePos"},
+    [9183932460] = {Name = "Untitled Hood",            Argument = "UpdateMousePos"},
+    [16709048641] = {Name = "Da Downhill",             Argument = "MOUSE"},
+    [16357436647] = {Name = "Hood Bank",               Argument = "MOUSE"},
+    [16357446356] = {Name = "Da Uphill",               Argument = "MOUSE"},
+    [15186202290] = {Name = "Da Strike",               Argument = "MOUSE"},
+    [15763167440] = {Name = "Da Hood Bot Aim Trainer", Argument = "MOUSE"},
+    [11143225577] = {Name = "1v1 Hood Aim Trainer",    Argument = "UpdateMousePos"},
+    [15763494605] = {Name = "Hood Aim",                Argument = "MOUSE"},
+    [15166543806] = {Name = "Moon Hood",               Argument = "MoonUpdateMousePos"},
 }
+
+if Games[game.PlaceId] then
+    local gameInfo = Games[game.PlaceId]
+    MousePos = gameInfo.Argument
+else
+    MousePos = "UpdateMousePos"
+end
 
 local ItemTable = {
     ['Guns'] = {
@@ -506,9 +497,6 @@ Script.Functions.Update_Desync = function(bool)
     end
 end
 
-
---[[
-
 Script.Functions.InvisibleDesync = function()   
     local NetworkShouldSleep = false
     if not Script.Connections["Invisible Desync"] then
@@ -540,7 +528,7 @@ Script.Functions.InvisibleDesync = function()
 end
 
 Script.Functions.InvisibleDesync()
-]]
+
 local function ToggleTrail(Bool)
     for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
         if v:IsA("BasePart") then
@@ -646,7 +634,7 @@ end
 
     local function MenuNameUpdate()
         while (task.wait()) do
-            local Name, PlaceHolder = 'Misery Solara Version - Colloper Was Here :3', ''
+            local Name, PlaceHolder = 'Misery', ''
             for i = 1, #Name do --try
                 local Character = string.sub(Name, i, i)
                 PlaceHolder = PlaceHolder .. Character
@@ -747,6 +735,12 @@ end
                 end)
                 Menu.CheckBox("Main", "Checks", "Crew Check", false, function(a)
                     Settings.Combat.Checks.Crew = a
+                end)
+                Menu.CheckBox("Main", "Checks", "Aim Viewer Bypass", true, function(a)
+                    print(a)
+                end)
+                Menu.CheckBox("Main", "Checks", "Resolver", true, function(a)
+                    print(a)
                 end)
                 Menu.CheckBox("Main", "Checks", "Friend Check", false, function(a)
                     Settings.Combat.Checks.Friend = a
@@ -966,6 +960,20 @@ end
               Menu.CheckBox("Misc", "Stuff", "No Slow", false, function(a)
                   Settings.Misc.Random.NoSlow = a
               end)
+  
+                Menu.CheckBox("Misc", "Stuff", "No Jump cooldown", false, function(a)
+                    if a then
+                        local IsA = game.IsA
+                        local newindex = nil
+  
+                        newindex = hookmetamethod(game, "__newindex", function(self, Index, Value)
+                            if not checkcaller() and IsA(self, "Humanoid") and Index == "JumpPower" then
+                                return
+                            end
+                            return newindex(self, Index, Value)
+                        end)
+                    end
+                end)
                 Menu.CheckBox("Misc", "Stuff", "Anti Bag", false, function(a)
                     Settings.Misc.Random.AntiBag = a
                 end)
@@ -1704,30 +1712,33 @@ end
 --// Loops
 task.spawn(function() while task.wait() do UpdateBuiltVelocity() end end)
 
---// Hooking Target Aimbot 
-Hooks = function()
-    if Settings.Combat.TargetLock.Enabled and Target and Target.Character and List[game.PlaceId] then
-        local Position
+
+--// Hooking Aimbot --// CREDITS FOR THE HOOK TO CALLS
+local AimMetaTable = getrawmetatable(game); makewriteable(AimMetaTable)
+local OldMetaTable = AimMetaTable.__namecall; AimMetaTable.__namecall = newcclosure(function(...)
+    local Arguments = {...};
+    if Settings.Combat.TargetLock.Enabled and getnamecallmethod() == 'FireServer' and Arguments[2] == MousePos and Target and Target.Character then
         local TargetCharacter = Target.Character
         if (Settings.Combat.Checks.Resolver) then
-            Position = TargetCharacter[Settings.Combat.TargetLock.HitParts].Position + (BuiltVelocity * Vector3.new(Settings.Combat.TargetLock.Prediction, Settings.Combat.TargetLock.Prediction, Settings.Combat.TargetLock.Prediction))
+            Arguments[3] = TargetCharacter[Settings.Combat.TargetLock.HitParts].Position + (BuiltVelocity * Vector3.new(Settings.Combat.TargetLock.Prediction, Settings.Combat.TargetLock.Prediction, Settings.Combat.TargetLock.Prediction))
         else
-            Position = TargetCharacter[Settings.Combat.TargetLock.HitParts].Position + (TargetCharacter[Settings.Combat.TargetLock.HitParts].Velocity * Vector3.new(Settings.Combat.TargetLock.Prediction, Settings.Combat.TargetLock.Prediction, Settings.Combat.TargetLock.Prediction))
+            Arguments[3] = TargetCharacter[Settings.Combat.TargetLock.HitParts].Position + (TargetCharacter[Settings.Combat.TargetLock.HitParts].Velocity * Vector3.new(Settings.Combat.TargetLock.Prediction, Settings.Combat.TargetLock.Prediction, Settings.Combat.TargetLock.Prediction))
         end
-        game.ReplicatedStorage[List[game.PlaceId][3]]:FireServer(List[game.PlaceId][2], Position)
+
+        return OldMetaTable(unpack(Arguments))
     end
-end
+    return OldMetaTable(...)
+end)
 
-connection = function(Character)
-    Character.ChildAdded:Connect(function(Tool)
-        if Tool:IsA('Tool') then
-            Tool.Activated:Connect(Hooks)
-        end
-    end)
-end
+local index; index = hookmetamethod(game, '__index', function(Obj, Prop)
 
-game.Players.LocalPlayer.CharacterAdded:Connect(connection)
-connection(game.Players.LocalPlayer.Character)
+    if Prop == 'CFrame' and index(Obj, 'Name') == 'HumanoidRootPart' and index(Obj, 'Parent') == index(Client, 'Character') and Desync.ClientLocation then
+        return Desync.ClientLocation
+    end
+
+    return index(Obj, Prop)
+end)
+
  
   
         -- FIRE VISUALS 🔥🔥🔥🔥
@@ -2364,7 +2375,7 @@ end
   end
   
   
-  --[[
+  
   local HightLightT = Instance.new("Highlight")
   local AimViewerHighLight = Instance.new("Highlight")
   local Framework = Client.PlayerGui:FindFirstChild('Framework')
@@ -2382,7 +2393,6 @@ end
   
       return newindex(self, key, value)
   end))
-  ]]
   
   local function Heartbeat()
 
@@ -2412,9 +2422,7 @@ end
             end
         )
     end
-
-    --[[
-
+  
     if ENABLEDHIGHTLIGHTCHECK == true and Settings.Combat.Visuals.HighLight.Enabled == true and Settings.Combat.TargetLock.Enabled == true and Target then
         HightLightT.Parent = Target.Character
         HightLightT.FillColor = Settings.Combat.Visuals.HighLight.FillColor
@@ -2422,7 +2430,7 @@ end
     else
         HightLightT.Parent = game.CoreGui
     end
-]]  
+  
     if AntiAimViewer_Enabled and AntiAimViewer_HighLight and AntiAimViewer_Target and AntiAimViewer_Target.Character and AntiAimViewer_Target.Character:FindFirstChild("HumanoidRootPart") then
         AimViewerHighLight.Parent = AntiAimViewer_Target.Character
         AimViewerHighLight.FillColor = AntiAimViewer_HighLight_FillColor
